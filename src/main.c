@@ -107,7 +107,7 @@ int main(void)
 	  HAL_Delay(1000);
 
 	  // Converting numeric value to string with comments
-	  sprintf((char*)buf, (char*)"Hello World:%d\n", counter);
+	  sprintf((char*)buf, (char*)"Hello World:%d\n", counter); 
 	  // incrementing counter variable
 	  counter = counter + 1;
 	  // send buf zero termination string to UART2
