@@ -50,6 +50,7 @@
                 "C:/Users/Maciek/.platformio/packages/framework-stm32cubef3/Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src",
                 "C:/Users/Maciek/.platformio/packages/framework-stm32cubef3/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc",
                 "C:/Users/Maciek/.platformio/packages/framework-stm32cubef3/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Src",
+                "C:/Users/Maciek/.platformio/packages/tool-unity",
                 ""
             ],
             "browse": {
@@ -97,13 +98,13 @@
                     "C:/Users/Maciek/.platformio/packages/framework-stm32cubef3/Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src",
                     "C:/Users/Maciek/.platformio/packages/framework-stm32cubef3/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc",
                     "C:/Users/Maciek/.platformio/packages/framework-stm32cubef3/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Src",
+                    "C:/Users/Maciek/.platformio/packages/tool-unity",
                     ""
                 ]
             },
             "defines": [
                 "PLATFORMIO=50202",
-                "STM32F3",
-                "STM32F303xC",
+                "STM32F303xE",
                 "USE_HAL_DRIVER",
                 "F_CPU=72000000L",
                 ""

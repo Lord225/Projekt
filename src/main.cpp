@@ -91,7 +91,11 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
+  const char* x = "Hello Wolrd";
+  HAL_UART_Transmit(&huart2, (uint8_t*)x, sizeof(x), 100);
+
   /* USER CODE END 2 */
+
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -104,10 +108,10 @@ int main(void)
 	  // toggle LED pin 0 > 1 > 0 .....
 	  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 	  // delay wait for 1000 ms
-	  HAL_Delay(1000);
+
 
 	  // Converting numeric value to string with comments
-	  sprintf((char*)buf, (char*)"Hello World:%d\n", counter);
+	  sprintf((char*)buf, (char*)"Hello World: %d\n", counter);
 	  // incrementing counter variable
 	  counter = counter + 1;
 	  // send buf zero termination string to UART2
