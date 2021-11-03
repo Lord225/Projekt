@@ -102,12 +102,12 @@ int main(void)
 	  uint8_t buf[20];
 
 	  // toggle LED pin 0 > 1 > 0 .....
-	  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+	  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin); //lolek
 	  // delay wait for 1000 ms
 	  HAL_Delay(1000);
 
 	  // Converting numeric value to string with comments
-	  sprintf((char*)buf, (char*)"Hello World:%d\n", counter);
+	  sprintf((char*)buf, (char*)"Hello World:%d\n", counter); 
 	  // incrementing counter variable
 	  counter = counter + 1;
 	  // send buf zero termination string to UART2
