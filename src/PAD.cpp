@@ -68,6 +68,5 @@ public:
         Serial.print("SW - ");
         Serial.print(digitalRead(SW_pin));
         Serial.print("\n");
-        delay(1000);
     }
 };
