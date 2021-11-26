@@ -4,9 +4,9 @@
 class Application
 {
 public:
-    DisplayInterface& output;
+    DisplayInterface &output;
 
-    Application(DisplayInterface& output) : output(output) {}
+    Application(DisplayInterface &output) : output(output) {}
 
     void on_start()
     {
@@ -14,7 +14,7 @@ public:
         {
             for (int x = 0; x < output.WIDTH; x++)
             {
-                output.set_pixel(x, y, (x+y+1)%2);
+                output.set_pixel(x, y, (x + y + 1) % 2);
             }
         }
     }
@@ -28,6 +28,5 @@ public:
                 output.set_pixel(x, y, !output.get_pixel(x, y));
             }
         }
-        
     }
 };
