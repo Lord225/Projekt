@@ -7,7 +7,7 @@ void DisplayExternal::set_pixel(int x, int y, bool state)
 
 bool DisplayExternal::get_pixel(int x, int y) 
 {
-
+    return false;
 }
 
 void DisplayExternal::flush() 
