@@ -6,7 +6,7 @@ PAD pad1;
 
 void setup()
 {
-    pad1.set_PAD(0, 1, 2);
+    pad1.set_PAD(0, 1, 4);
     Serial.begin(38400);
     String lolek;
 }

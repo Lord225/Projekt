@@ -18,8 +18,8 @@ public:
         X_pin = x;
         Y_pin = y;
         SW_pin = SW;
-        pinMode(SW_pin, INPUT);
-        digitalWrite(SW_pin, HIGH);
+        pinMode(SW_pin, INPUT_PULLUP);
+        digitalWrite(SW_pin, LOW);
     };
     void update()
     {
@@ -30,12 +30,6 @@ public:
     string position(int druk)
     {
         update();
-        if ((x - 512) ^ (2) + (y - 512) ^ (2) == 10000)
-        {
-            Serial.println("NONE");
-            check();
-            return "NONE";
-        }
         if (x >= y && x <= -y + 1023)
         {
             Serial.println("UP");
