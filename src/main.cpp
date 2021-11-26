@@ -39,6 +39,5 @@ void loop()
 
     delay(max((uint32_t)1, (uint32_t)TIME_PER_FRAME_MS));
 
-    pad1.position(1);
-    delay(1000);
+    Serial.println(pad1.position());
 }

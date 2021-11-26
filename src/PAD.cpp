@@ -35,54 +35,46 @@ public:
         y = analogRead(Y_pin);
         sw = digitalRead(SW_pin);
     };
-    enum position(int druk)
+    int position()
     {
-        enum UP = 0;
-        enum DOWN = 1;
-        enum LEFT = 2;
-        enum RIGHT = 4;
+        /*
+        UP - 1
+        DOWN - 2 
+        LEFT - 3
+        RIGTH - 4
+        NONE - 0
+        */
         update();
-        if ((x - x1) * (x - x1) + (y - y1) * (y - y1) < 40000){
-            Serial.println("NONE");
-            check();
-            return "NONE";}
-    if (x >= y && x <= -y + 1023)
-    {
-        Serial.println("UP");
-        check();
-        return "UP";
+        if ((x - x1) * (x - x1) + (y - y1) * (y - y1) < 4000)
+        {
+            return 0;
+        }
+        if (x >= y && x <= -y + 1023)
+        {
+            return 1;
+        }
+        if (x <= y && x >= -y + 1023)
+        {
+            return 2;
+        }
+        if (x < y && x < -y + 1023)
+        {
+            return 3;
+        }
+        if (x > y && x > -y + 1023)
+        {
+            return 4;
+        }
     }
-    if (x <= y && x >= -y + 1023)
+    void check()
     {
-
-        Serial.println("DOWN");
-        check();
-        return "DOWN";
+        Serial.print("x,y - ");
+        Serial.print(x);
+        Serial.print(",");
+        Serial.print(y);
+        Serial.print("\n");
+        Serial.print("SW - ");
+        Serial.print(digitalRead(SW_pin));
+        Serial.print("\n");
     }
-    if (x < y && x < -y + 1023)
-    {
-
-        Serial.println("LEFT");
-        check();
-        return "LEFT";
-    }
-    if (x > y && x > -y + 1023)
-    {
-
-        Serial.println("RIGHT");
-        check();
-        return "RIGHT";
-    }
-} void check()
-{
-    Serial.print("x,y - ");
-    Serial.print(x);
-    Serial.print(",");
-    Serial.print(y);
-    Serial.print("\n");
-    Serial.print("SW - ");
-    Serial.print(digitalRead(SW_pin));
-    Serial.print("\n");
-}
-}
-;
+};
