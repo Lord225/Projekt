@@ -24,7 +24,6 @@ void setup()
     Serial.begin(38400);
     displ.init();
     app.on_start();
-    String lolek;
 }
 
 void loop()
@@ -41,4 +40,5 @@ void loop()
     delay(max((uint32_t)1, (uint32_t)TIME_PER_FRAME_MS));
 
     pad1.position(1);
+    delay(1000);
 }
