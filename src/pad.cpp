@@ -1,6 +1,6 @@
-#include <Arduino.h>
-
-using namespace std;
+#include "agipo/serial.h"
+#include "agipo/analog.h"
+#include "agipo/digital.h"
 
 class PAD
 {
@@ -19,7 +19,7 @@ public:
         X_pin = x;
         Y_pin = y;
         SW_pin = SW;
-        pinMode(SW_pin, INPUT_PULLUP);
+        //pinMode(SW_pin, INPUT_PULLUP);
         digitalWrite(SW_pin, LOW);
         for (int i = 0; i < 100; i++)
         {
@@ -68,13 +68,13 @@ public:
     }
     void check()
     {
-        Serial.print("x,y - ");
-        Serial.print(x);
-        Serial.print(",");
-        Serial.print(y);
-        Serial.print("\n");
-        Serial.print("SW - ");
-        Serial.print(digitalRead(SW_pin));
-        Serial.print("\n");
+        // Serial.print("x,y - ");
+        // Serial.print(x);
+        // Serial.print(",");
+        // Serial.print(y);
+        // Serial.print("\n");
+        // Serial.print("SW - ");
+        // Serial.print(digitalRead(SW_pin));
+        // Serial.print("\n");
     }
 };
