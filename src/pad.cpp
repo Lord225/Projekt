@@ -11,6 +11,7 @@ private:
     int x = analogRead(X_pin);
     int y = analogRead(Y_pin);
     int sw = digitalRead(SW_pin);
+    int x1{}, y1{};
 
 public:
     void set_PAD(int x, int y, int SW)
@@ -20,6 +21,13 @@ public:
         SW_pin = SW;
         pinMode(SW_pin, INPUT_PULLUP);
         digitalWrite(SW_pin, LOW);
+        for (int i = 0; i < 100; i++)
+        {
+            x1 += analogRead(X_pin);
+            y1 += analogRead(Y_pin);
+        }
+        x1 = x1 / 100;
+        y1 = y1 / 100;
     };
     void update()
     {
@@ -27,35 +35,35 @@ public:
         y = analogRead(Y_pin);
         sw = digitalRead(SW_pin);
     };
-    string position(int druk)
+    int position()
     {
+        /*
+        UP - 1
+        DOWN - 2 
+        LEFT - 3
+        RIGTH - 4
+        NONE - 0
+        */
         update();
+        if ((x - x1) * (x - x1) + (y - y1) * (y - y1) < 4000)
+        {
+            return 0;
+        }
         if (x >= y && x <= -y + 1023)
         {
-            Serial.println("UP");
-            check();
-            return "UP";
+            return 1;
         }
         if (x <= y && x >= -y + 1023)
         {
-
-            Serial.println("DOWN");
-            check();
-            return "DOWN";
+            return 2;
         }
         if (x < y && x < -y + 1023)
         {
-
-            Serial.println("LEFT");
-            check();
-            return "LEFT";
+            return 3;
         }
         if (x > y && x > -y + 1023)
         {
-
-            Serial.println("RIGHT");
-            check();
-            return "RIGHT";
+            return 4;
         }
     }
     void check()
