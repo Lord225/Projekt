@@ -1,5 +1,6 @@
-#include "agipo/analog.h"
-#include "agipo/digital.h"
+#include <Arduino.h>
+
+using namespace std;
 
 class PAD
 {
@@ -10,7 +11,6 @@ private:
     int x = analogRead(X_pin);
     int y = analogRead(Y_pin);
     int sw = digitalRead(SW_pin);
-    int x1{}, y1{};
 
 public:
     void set_PAD(int x, int y, int SW)
@@ -18,15 +18,8 @@ public:
         X_pin = x;
         Y_pin = y;
         SW_pin = SW;
-        //pinMode(SW_pin, INPUT_PULLUP);     // No need in STM32cube, gipo.c robi robote
+        pinMode(SW_pin, INPUT_PULLUP);
         digitalWrite(SW_pin, LOW);
-        for (int i = 0; i < 100; i++)
-        {
-            x1 += analogRead(X_pin);
-            y1 += analogRead(Y_pin);
-        }
-        x1 = x1 / 100;
-        y1 = y1 / 100;
     };
     void update()
     {
@@ -34,46 +27,46 @@ public:
         y = analogRead(Y_pin);
         sw = digitalRead(SW_pin);
     };
-    int position()
+    string position(int druk)
     {
-        /*
-        UP - 1
-        DOWN - 2 
-        LEFT - 3
-        RIGTH - 4
-        NONE - 0
-        */
         update();
-        if ((x - x1) * (x - x1) + (y - y1) * (y - y1) < 4000)
-        {
-            return 0;
-        }
         if (x >= y && x <= -y + 1023)
         {
-            return 1;
+            Serial.println("UP");
+            check();
+            return "UP";
         }
         if (x <= y && x >= -y + 1023)
         {
-            return 2;
+
+            Serial.println("DOWN");
+            check();
+            return "DOWN";
         }
         if (x < y && x < -y + 1023)
         {
-            return 3;
+
+            Serial.println("LEFT");
+            check();
+            return "LEFT";
         }
         if (x > y && x > -y + 1023)
         {
-            return 4;
+
+            Serial.println("RIGHT");
+            check();
+            return "RIGHT";
         }
     }
     void check()
     {
-        //Serial.print("x,y - ");
-        //Serial.print(x);
-        //Serial.print(",");
-        //Serial.print(y);
-        //Serial.print("\n");
-        //Serial.print("SW - ");
-        //Serial.print(digitalRead(SW_pin));
-        //Serial.print("\n");
+        Serial.print("x,y - ");
+        Serial.print(x);
+        Serial.print(",");
+        Serial.print(y);
+        Serial.print("\n");
+        Serial.print("SW - ");
+        Serial.print(digitalRead(SW_pin));
+        Serial.print("\n");
     }
 };
