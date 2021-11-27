@@ -15,7 +15,7 @@ bool DisplayMonitor::get_pixel(int x, int y)
 
 void DisplayMonitor::flush()
 {
-    //serial_port.println("--------");
+    println("--------", uart);
     for (int y = 0; y < 8; y++)
     {
         char LINE[10];
@@ -32,9 +32,9 @@ void DisplayMonitor::flush()
         }
         LINE[8] = '\r';
         LINE[9] = '\0';
-        //serial_port.println(LINE);
+        println(LINE, uart);
     }
-    //serial_port.println("--------");
+    println("--------", uart);
 }
 
 void DisplayMonitor::init()

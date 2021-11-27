@@ -1,16 +1,10 @@
-#pragma once
+#ifndef __SERIAL_H__
+#define __SERIAL_H__
+
 #include <string>
 #include "usart.h"
 
-void print(std::string message, uint32_t time_out = 100)
-{
-    HAL_UART_Transmit(&huart2, (uint8_t *)message.c_str(), message.length(), time_out);
-}
+void print(std::string message, UART_HandleTypeDef& channel = huart2, uint32_t time_out = 100);
 
-void println(std::string message, uint32_t time_out = 100)
-{
-    message += '\n';
-    print(message, time_out);
-}
-
-
+void println(std::string message, UART_HandleTypeDef& channel = huart2, uint32_t time_out = 100);
+#endif

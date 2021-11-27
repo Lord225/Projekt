@@ -26,6 +26,7 @@
 
 #include "display/Display.h"
 #include "agipo/serial.h"
+#include "app.h"
 
 #define USE_MONITOR_AS_DISPLAY
 #define TIME_PER_FRAME_MS 100
@@ -35,6 +36,8 @@ DisplayMonitor displ = DisplayMonitor(huart2);
 #else
 DisplayExternal displ = DisplayExternal((uint8_t)13, (uint8_t)11, (uint8_t)10);
 #endif
+
+Application app = Application(displ);
 
 void SystemClock_Config(void);
 
@@ -49,9 +52,22 @@ int main(void)
     MX_DMA_Init();
     MX_USART2_UART_Init();
 
+    displ.init();
+    app.on_start();
+
     while (1)
     {
         println("Hello World");
+
+        displ.flush();
+
+        for (size_t i = 0; i < 8; i++)
+        {
+            for (size_t j = 0; j < 8; j++)
+            {
+                displ.set_pixel(i, j, !displ.get_pixel(i, j));
+            }
+        }
 
         HAL_Delay(1000);
     }
@@ -110,6 +126,7 @@ void Error_Handler(void)
 {
     /* USER CODE BEGIN Error_Handler_Debug */
     /* User can add his own implementation to report the HAL error return state */
+
     __disable_irq();
     while (1)
     {

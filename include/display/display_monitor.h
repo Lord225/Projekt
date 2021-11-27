@@ -1,5 +1,6 @@
 #pragma once
 #include "display_interface.h"
+#include "agipo/serial.h"
 #include "usart.h"
 
 class DisplayMonitor : public DisplayInterface
@@ -9,7 +10,6 @@ class DisplayMonitor : public DisplayInterface
 public:
     DisplayMonitor(UART_HandleTypeDef& uart) : uart(uart)
     {
-
     }
     void set_pixel(int x, int y, bool state) override;
     bool get_pixel(int x, int y) override;
