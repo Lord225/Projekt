@@ -36,8 +36,9 @@ DisplayMonitor displ = DisplayMonitor(huart2);
 #else
 DisplayExternal displ = DisplayExternal((uint8_t)13, (uint8_t)11, (uint8_t)10);
 #endif
+PAD pad = PAD();
 
-Application app = Application(displ);
+Application app = Application(displ, pad);
 
 void SystemClock_Config(void);
 

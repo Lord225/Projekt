@@ -1,12 +1,14 @@
 #pragma once
 #include "display/Display.h"
+#include "pad.cpp"
 
 class Application
 {
 public:
     DisplayInterface &output;
+    PAD& gamepad;
 
-    Application(DisplayInterface &output) : output(output) {}
+    Application(DisplayInterface &output, PAD& gamepad) : output(output), gamepad(gamepad) {}
 
     void on_start()
     {
