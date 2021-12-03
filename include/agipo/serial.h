@@ -7,4 +7,5 @@
 void print(std::string message, UART_HandleTypeDef& channel = huart2, uint32_t time_out = 100);
 
 void println(std::string message, UART_HandleTypeDef& channel = huart2, uint32_t time_out = 100);
+
 #endif

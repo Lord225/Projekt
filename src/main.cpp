@@ -28,24 +28,26 @@
 #include "agipo/serial.h"
 #include "app.h"
 
-#define USE_MONITOR_AS_DISPLAY
+//#define USE_MONITOR_AS_DISPLAY
 #define TIME_PER_FRAME_MS 100
 
 #ifdef USE_MONITOR_AS_DISPLAY
 DisplayMonitor displ = DisplayMonitor(huart2);
 #else
-DisplayExternal displ = DisplayExternal((uint8_t)13, (uint8_t)11, (uint8_t)10);
+DisplayExternal displ = DisplayExternal(hspi1);
 #endif
 
 Application app = Application(displ);
 
 void SystemClock_Config(void);
 
+
 int main(void)
 {
     HAL_Init();
 
     SystemClock_Config();
+
 
     MX_GPIO_Init();
     MX_SPI1_Init();
@@ -57,19 +59,11 @@ int main(void)
 
     while (1)
     {
-        println("Hello World");
+      app.on_update();
 
-        displ.flush();
+      displ.flush();
 
-        for (size_t i = 0; i < 8; i++)
-        {
-            for (size_t j = 0; j < 8; j++)
-            {
-                displ.set_pixel(i, j, !displ.get_pixel(i, j));
-            }
-        }
-
-        HAL_Delay(1000);
+      HAL_Delay(100);
     }
 }
 
