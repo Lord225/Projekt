@@ -43,6 +43,7 @@ int main()
     MX_DMA_Init();
     MX_USART2_UART_Init();
     MX_TIM2_Init();
+    MX_ADC_Init();
 
     displ.init();
     app.on_start();
