@@ -1,6 +1,6 @@
-#include "agipo/serial.h"
-#include "agipo/analog.h"
-#include "agipo/digital.h"
+// #include "agipo/serial.h"
+// #include "agipo/analog.h"
+// #include "agipo/digital.h"
 
 // class PAD
 // {

@@ -6,9 +6,8 @@ class Application
 {
 public:
     DisplayInterface &output;
-    PAD& gamepad;
 
-    Application(DisplayInterface &output, PAD& gamepad) : output(output), gamepad(gamepad) {}
+    Application(DisplayInterface &output) : output(output) {}
 
     void on_start()
     {

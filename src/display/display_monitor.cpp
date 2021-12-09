@@ -40,10 +40,6 @@ void DisplayMonitor::flush()
 void DisplayMonitor::init()
 {
     for (int x = 0; x < WIDTH; x++)
-    {
         for (int y = 0; y < HEIGHT; y++)
-        {
             _screen[x][y] = 0;
-        }
-    }
 }

@@ -8,7 +8,6 @@
 class DisplayExternal : public DisplayInterface
 {
     SPI_HandleTypeDef& spi;
-    
     std::bitset<8> _screen[8];
 
     const uint8_t MAX7219_TEST = 0x0f;

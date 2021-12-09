@@ -25,5 +25,8 @@ void DisplayExternal::init()
     maxTransfer(MAX7219_DECODE_MODE, 0x00); 
     maxTransfer(MAX7219_BRIGHTNESS, 0x00);
     maxTransfer(MAX7219_SCAN_LIMIT, 0x0F);
-    maxTransfer(MAX7219_SHUTDOWN, 0x01);  
+    maxTransfer(MAX7219_SHUTDOWN, 0x01);
+    for (int x = 0; x < WIDTH; x++)
+        for (int y = 0; y < HEIGHT; y++)
+            _screen[x][y] = 0;
 }

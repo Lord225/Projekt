@@ -1,29 +1,9 @@
-/* USER CODE BEGIN Header */
-/**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
-  */
-/* USER CODE END Header */
-/* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "dma.h"
 #include "spi.h"
 #include "usart.h"
 #include "gpio.h"
-
+#include "tim.h"
 #include "display/Display.h"
 #include "agipo/serial.h"
 #include "app.h"
@@ -36,35 +16,38 @@ DisplayMonitor displ = DisplayMonitor(huart2);
 #else
 DisplayExternal displ = DisplayExternal(hspi1);
 #endif
-PAD pad = PAD();
+//PAD pad = PAD();
 
-Application app = Application(displ, pad);
+Application app = Application(displ);
 
 void SystemClock_Config(void);
 
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  app.on_update();
+  displ.flush();
+}
 
-int main(void)
+int main()
 {
     HAL_Init();
 
     SystemClock_Config();
 
-
     MX_GPIO_Init();
     MX_SPI1_Init();
     MX_DMA_Init();
     MX_USART2_UART_Init();
+    MX_TIM2_Init();
 
     displ.init();
     app.on_start();
+    displ.flush();
+
+    HAL_TIM_Base_Start_IT(&htim2);
 
     while (1)
     {
-      app.on_update();
-
-      displ.flush();
-
-      HAL_Delay(100);
     }
 }
 
