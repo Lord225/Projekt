@@ -32,6 +32,8 @@ int main()
 {
     HAL_Init();
 
+    pad.set_PAD(0,1,10,10);
+
     SystemClock_Config();
 
     MX_GPIO_Init();
