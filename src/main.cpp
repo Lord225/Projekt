@@ -47,8 +47,9 @@ int main(void)
 {
     HAL_Init();
 
-    SystemClock_Config();
+    pad.set_PAD(0,1,10,10);
 
+    SystemClock_Config();
 
     MX_GPIO_Init();
     MX_SPI1_Init();
@@ -60,6 +61,7 @@ int main(void)
 
     while (1)
     {
+
       app.on_update();
 
       displ.flush();

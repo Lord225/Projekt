@@ -6,5 +6,5 @@ void digitalWrite(GPIO_TypeDef* port, uint16_t  pin, bool state)
 }
 bool digitalRead(GPIO_TypeDef* port, uint16_t pin)
 {
-    return false;
+    return HAL_GPIO_ReadPin(port,pin);
 }
