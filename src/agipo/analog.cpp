@@ -2,5 +2,6 @@
 
 int analogRead(GPIO_TypeDef *port, uint16_t pin)
 {
-    return HAL_GPIO_ReadPin(port, pin);
+    //HAL_ADC_GetValue(port, pin);
+    return 0;
 }

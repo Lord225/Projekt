@@ -1,13 +1,14 @@
-// #include "agipo/serial.h"
-// #include "agipo/analog.h"
-// #include "agipo/digital.h"
+#pragma once
+#include "agipo/serial.h"
+#include "agipo/analog.h"
+#include "agipo/digital.h"
 
 class PAD
 {
 private:
     int X_pin = 0;
-    int Y_pin = 1;
-    int SW_pin = 10;
+    int Y_pin = 0;
+    int SW_pin = 0;
     int x{}, y{};
     int sw{};
     int x1{}, y1{}, y2{};
@@ -32,6 +33,7 @@ public:
         x = analogRead(GPIOA, X_pin);
         y = analogRead(GPIOA, Y_pin);
         sw = digitalRead(GPIOA, SW_pin);
+        println("Update " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(sw));
     };
     int position()
     {
@@ -42,7 +44,6 @@ public:
         RIGTH - 4
         NONE - 0
         */
-        update();
         if ((x - x1) * (x - x1) + (y - y1) * (y - y1) < y2)
         {
             return 0;

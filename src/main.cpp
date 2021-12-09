@@ -7,6 +7,7 @@
 #include "display/Display.h"
 #include "agipo/serial.h"
 #include "app.h"
+#include "pad.cpp"
 
 //#define USE_MONITOR_AS_DISPLAY
 #define TIME_PER_FRAME_MS 100
@@ -16,9 +17,10 @@ DisplayMonitor displ = DisplayMonitor(huart2);
 #else
 DisplayExternal displ = DisplayExternal(hspi1);
 #endif
-//PAD pad = PAD();
 
-Application app = Application(displ);
+PAD pad = PAD();
+
+Application app = Application(displ, pad);
 
 void SystemClock_Config(void);
 
@@ -32,7 +34,7 @@ int main()
 {
     HAL_Init();
 
-    pad.set_PAD(0,1,10,10);
+    pad.set_PAD(GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_10, 10);
 
     SystemClock_Config();
 
@@ -50,6 +52,7 @@ int main()
 
     while (1)
     {
+      pad.update();
     }
 }
 
