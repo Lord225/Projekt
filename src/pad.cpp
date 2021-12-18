@@ -1,4 +1,5 @@
 #pragma once
+
 #include "agipo/serial.h"
 #include "agipo/analog.h"
 #include "agipo/digital.h"
@@ -35,6 +36,7 @@ public:
         sw = digitalRead(GPIOA, SW_pin);
         println("Update " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(sw));
     };
+    
     int position()
     {
         /*

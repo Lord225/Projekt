@@ -6,14 +6,14 @@
 #include "tim.h"
 #include "display/Display.h"
 #include "agipo/serial.h"
-#include "app.h"
+#include "snake/app.h"
 #include "pad.cpp"
 
 //#define USE_MONITOR_AS_DISPLAY
 #define TIME_PER_FRAME_MS 100
 
 #ifdef USE_MONITOR_AS_DISPLAY
-DisplayMonitor displ = DisplayMonitor(huart2);
+DisplayMonitor displ = DisplayMonitor();
 #else
 DisplayExternal displ = DisplayExternal(hspi1);
 #endif
@@ -34,8 +34,6 @@ int main()
 {
     HAL_Init();
 
-    pad.set_PAD(GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_10, 10);
-
     SystemClock_Config();
 
     MX_GPIO_Init();
@@ -45,15 +43,17 @@ int main()
     MX_TIM2_Init();
     MX_ADC_Init();
 
+    pad.set_PAD(GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_10, 10);
     displ.init();
-    app.on_start();
     displ.flush();
+    app.on_start();
 
     HAL_TIM_Base_Start_IT(&htim2);
-
+    
     while (1)
     {
       pad.update();
+      Monitor::flush();
     }
 }
 

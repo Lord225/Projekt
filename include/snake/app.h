@@ -21,19 +21,22 @@ public:
         }
     }
 
-    void on_update()
+    void change_state()
     {
-        if(input.isclicked())
-        {
-            println("Button Clicked");
-            output.set_pixel(0, 0, 1);
-        }
         for (int y = 0; y < output.HEIGHT; y++)
         {
             for (int x = 0; x < output.WIDTH; x++)
             {
                 output.set_pixel(x, y, !output.get_pixel(x, y));
             }
+        }
+    }
+
+    void on_update()
+    {
+        if(input.isclicked())
+        {  
+            change_state();
         }
     }
 };
