@@ -19,6 +19,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "gpio.h"
+#include "agipo/analog.h"
 
 /* USER CODE BEGIN 0 */
 
@@ -64,7 +65,18 @@ void MX_GPIO_Init(void)
 
 void MX_ADC_Init(void)
 {
+  __HAL_RCC_ADC1_CLK_ENABLE();
 
+  adc.Instance = ADC1;
+  adc.Init.ContinuousConvMode = DISABLE;
+  adc.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+  adc.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+  adc.Init.ScanConvMode = ADC_SCAN_DISABLE;
+  adc.Init.NbrOfConversion = 1;
+  adc.Init.DiscontinuousConvMode = DISABLE;
+  adc.Init.NbrOfDiscConversion = 1;
+  HAL_ADC_Init(&adc);
+  
 }
 
 /* USER CODE BEGIN 2 */
