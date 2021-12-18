@@ -334,6 +334,8 @@
  #include "stm32f3xx_hal_wwdg.h"
 #endif /* HAL_WWDG_MODULE_ENABLED */
 
+#include "stm32f3xx_hal_adc_ex.h"
+
 /* Exported macro ------------------------------------------------------------*/
 #ifdef  USE_FULL_ASSERT
 /**
