@@ -34,9 +34,15 @@ public:
 
     void on_update()
     {
+        println("On Update");
         if(input.isclicked())
         {  
             change_state();
+            println("is clicked");
+        }
+        if(input.wasclicked())
+        {
+            println("was clicked");
         }
     }
 };
