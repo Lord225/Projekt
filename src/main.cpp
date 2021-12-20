@@ -29,6 +29,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     app.on_update();
     displ.flush();
+    pad.buttonreset();
 }
 uint16_t Joystick[2];
 
