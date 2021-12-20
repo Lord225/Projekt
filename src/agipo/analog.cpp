@@ -1,6 +1,6 @@
 #include "agipo/analog.h"
 
-int adc_read(uint32_t channel)
+int analogRead(uint32_t channel)
 {
 	ADC_ChannelConfTypeDef adc_ch;
 	adc_ch.Channel = channel;
@@ -12,9 +12,9 @@ int adc_read(uint32_t channel)
 	HAL_ADC_PollForConversion(&adc, 1000);
     return HAL_ADC_GetValue(&adc);
 }
-
+/*
 int analogRead(GPIO_TypeDef *port, uint16_t pin)
 {
     //HAL_ADC_GetValue(port, pin);
     return 0;
-}
+}*/

@@ -43,7 +43,7 @@ int main()
     MX_TIM2_Init();
     MX_ADC_Init();
 
-    pad.set_PAD(GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_10, 10);
+    pad.set_PAD(0, 1, 10, 100);
     displ.init();
     displ.flush();
     app.on_start();
@@ -52,7 +52,8 @@ int main()
     
     while (1)
     {
-      pad.update();
+      //pad.update();
+      println("bolek");
       Monitor::flush();
     }
 }

@@ -8,8 +8,8 @@ class PAD
 {
 private:
     int X_pin = 0;
-    int Y_pin = 0;
-    int SW_pin = 0;
+    int Y_pin = 1;
+    int SW_pin = 10;
     int x{}, y{};
     int sw{};
     int x1{}, y1{}, y2{};
@@ -22,8 +22,8 @@ public:
         SW_pin = SW;
         for (int i = 0; i < 100; i++)
         {
-            x1 += analogRead(GPIOA, X_pin);
-            y1 += analogRead(GPIOA, Y_pin);
+            x1 += analogRead(0);
+            y1 += analogRead(1);
         }
         x1 = x1 / 100;
         y1 = y1 / 100;
@@ -31,8 +31,8 @@ public:
     };
     void update()
     {
-        x = analogRead(GPIOA, X_pin);
-        y = analogRead(GPIOA, Y_pin);
+        x = analogRead(0);
+        y = analogRead(1);
         sw = digitalRead(GPIOA, SW_pin);
         println("Update " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(sw));
     };
