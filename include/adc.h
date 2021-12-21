@@ -34,6 +34,8 @@ extern ADC_HandleTypeDef hadc1;
 
 /* USER CODE BEGIN Private defines */
 
+void ADC_SetActiveChannel(ADC_HandleTypeDef *hadc, uint32_t AdcChannel);
+
 /* USER CODE END Private defines */
 
 void MX_ADC1_Init(void);

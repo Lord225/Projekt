@@ -8,7 +8,7 @@
 #include "agipo/serial.h"
 #include "adc.h"
 #include "snake/app.h"
-#include "pad.cpp"
+#include "pad.h"
 
 //#define USE_MONITOR_AS_DISPLAY
 #define TIME_PER_FRAME_MS 100
@@ -30,19 +30,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     app.on_update();
     displ.flush();
     pad.buttonreset();
-}
-uint16_t Joystick[2];
-
-void ADC_SetActiveChannel(ADC_HandleTypeDef *hadc, uint32_t AdcChannel)
-{
-    ADC_ChannelConfTypeDef sConfig = {0};
-    sConfig.Channel = AdcChannel;
-    sConfig.Rank = 1;
-    sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
-    if (HAL_ADC_ConfigChannel(hadc, &sConfig) != HAL_OK)
-    {
-        Error_Handler();
-    }
 }
 
 int main()
@@ -69,20 +56,6 @@ int main()
     while (1)
     {
         pad.update();
-        if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK)
-        {
-            Joystick[0] = HAL_ADC_GetValue(&hadc1); // Get X value
-            ADC_SetActiveChannel(&hadc1, ADC_CHANNEL_1);
-            HAL_ADC_Start(&hadc1);
-        }
-
-        if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK)
-        {
-            Joystick[1] = HAL_ADC_GetValue(&hadc1); // Get Y value
-            ADC_SetActiveChannel(&hadc1, ADC_CHANNEL_2);
-            HAL_ADC_Start(&hadc1);
-        }
-        println(std::to_string(Joystick[0]) + " " + std::to_string(Joystick[1]));
         Monitor::flush();
     }
 }

@@ -26,6 +26,18 @@
 
 ADC_HandleTypeDef hadc1;
 
+void ADC_SetActiveChannel(ADC_HandleTypeDef *hadc, uint32_t AdcChannel)
+{
+    ADC_ChannelConfTypeDef sConfig = {0};
+    sConfig.Channel = AdcChannel;
+    sConfig.Rank = 1;
+    sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+    if (HAL_ADC_ConfigChannel(hadc, &sConfig) != HAL_OK)
+    {
+        Error_Handler();
+    }
+}
+
 /* ADC1 init function */
 void MX_ADC1_Init(void)
 {
