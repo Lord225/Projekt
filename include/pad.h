@@ -7,14 +7,6 @@
 class PAD
 {
 private:
-    enum DIR
-    {
-        NONE = 0,
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT,
-    };
     int X_pin = 0;
     int Y_pin = 1;
     int SW_pin = 10;
@@ -24,10 +16,18 @@ private:
     bool was_cliced = false;
 
 public:
+    enum DIR
+    {
+        NONE = 0,
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+    };
     void resetstates();
     void init(int x, int y, int SW, int R);
     void update();
-    int position();
+    PAD::DIR position();
     bool isclicked();
     bool wasclicked();
 };

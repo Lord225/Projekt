@@ -33,7 +33,7 @@ public:
 
     void random_heuristic()
     {
-        for (int i = 0; snake.update(static_cast<Snake::Direction>(rand() % 4 + 1)) != Snake::CollisionClass::None; i++)
+        for (int i = 0; snake.update(static_cast<PAD::DIR>(rand() % 4 + 1)) != Snake::CollisionClass::None; i++)
             if (i > 20)
                 snake.reset(4, 4);
     }

@@ -55,7 +55,7 @@ void PAD::update()
 
 }
 
-DIR PAD::position()
+PAD::DIR PAD::position()
 {
     if ((x - x1) * (x - x1) + (y - y1) * (y - y1) < y2)
     {

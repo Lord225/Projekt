@@ -1,6 +1,7 @@
 #pragma once
 #include "sprites.h"
 #include "point.h"
+#include "pad.h"
 #include <deque>
 #include <algorithm>
 
@@ -8,16 +9,8 @@ class Snake : public DrawableInferface
 {
     Point head;
     std::deque<Point> tail;
-    int max = 5;
+    size_t max = 5;
 public:
-    enum Direction
-    {
-        NONE = 0,
-        UP = 1,
-        DOWN = 2,
-        RIGHT = 3,
-        LEFT = 4,
-    };
     enum CollisionClass
     {
         None = 0,
@@ -25,20 +18,22 @@ public:
         Self = 2,
     };
 
-    std::pair<int,int> dir_to_vec(Direction dir)
+    std::pair<int,int> dir_to_vec(PAD::DIR dir)
     {
         switch (dir)
         {
-        case Direction::NONE:
-            return {0, 0};
-        case Direction::UP:
+        case PAD::DIR::UP:
             return {1, 0};
-        case Direction::DOWN:
+        case PAD::DIR::DOWN:
             return {-1, 0};
-        case Direction::RIGHT:
+        case PAD::DIR::RIGHT:
             return {0, 1};
-        case Direction::LEFT:
+        case PAD::DIR::LEFT:
             return {0, -1};
+        case PAD::DIR::NONE:
+        default:
+            return {0, 0};
+        
         }       
     }
     
@@ -62,7 +57,7 @@ public:
         return CollisionClass::None;  
     }
 
-    CollisionClass update(Direction DIR)
+    CollisionClass update(PAD::DIR DIR)
     {
         while(tail.size() > max)
             tail.pop_back();
