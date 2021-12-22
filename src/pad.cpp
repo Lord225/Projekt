@@ -1,47 +1,58 @@
-#pragma once
+#include "pad.h"
 
-#include "agipo/serial.h"
-#include "agipo/digital.h"
-
-class PAD
-{
-private:
-    int X_pin = 0;
-    int Y_pin = 1;
-    int SW_pin = 10;
-    int x{}, y{};
-    int sw{};
-    int x1{}, y1{}, y2{};
-    bool was_cliced = false;
-
-public:
-    void buttonreset()
+    void PAD::buttonreset()
     {   
         was_cliced = false;
-    }
-    void set_PAD(int x, int y, int SW, int R)
+    };
+    void PAD::set_PAD(int x, int y, int SW, int R)
     {
         X_pin = x;
         Y_pin = y;
         SW_pin = SW;
         for (int i = 0; i < 100; i++)
         {
-            //x1 += analogRead(0);
-            //y1 += analogRead(1);
+            if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK)
+        {
+            x1 = HAL_ADC_GetValue(&hadc1); // Get X value
+            ADC_SetActiveChannel(&hadc1, ADC_CHANNEL_1);
+            HAL_ADC_Start(&hadc1);
+        }
+
+        if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK)
+        {
+            y1 = HAL_ADC_GetValue(&hadc1); // Get Y value
+            ADC_SetActiveChannel(&hadc1, ADC_CHANNEL_2);
+            HAL_ADC_Start(&hadc1);
+        }
+          //  x1 += analogRead(0);
+          //  y1 += analogRead(1);
         }
         x1 = x1 / 100;
         y1 = y1 / 100;
         y2 = R; // y2 odpowiada za none (R koła)
     };
-    void update()
+    void PAD::update()
     {
-        //x = analogRead(0);
-        //y = analogRead(1);
+        if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK)
+        {
+            x = HAL_ADC_GetValue(&hadc1); // Get X value
+            ADC_SetActiveChannel(&hadc1, ADC_CHANNEL_1);
+            HAL_ADC_Start(&hadc1);
+        }
+
+        if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK)
+        {
+            y = HAL_ADC_GetValue(&hadc1); // Get Y value
+            ADC_SetActiveChannel(&hadc1, ADC_CHANNEL_2);
+            HAL_ADC_Start(&hadc1);
+        }
+       // x = analogRead(0);
+       // y = analogRead(1);
         sw = digitalRead(GPIOA, SW_pin);
-        //println("Update " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(sw));
+        println("Update " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(sw));
     };
     
-    int position()
+    int PAD::position()
     {
         /*
         UP - 1
@@ -70,14 +81,13 @@ public:
         {
             return 4;
         }
-    }
+    };
 
-    bool isclicked()
+    bool PAD::isclicked()
     {
         return sw;
-    }
-    bool wasclicked()
+    };
+    bool PAD::wasclicked()
     {
-        return false;
-    }
-};
+        
+    };
