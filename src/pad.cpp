@@ -17,7 +17,7 @@ private:
 public:
     void buttonreset()
     {   
-        was_cliced = false
+        was_cliced = false;
     }
     void set_PAD(int x, int y, int SW, int R)
     {
@@ -26,8 +26,8 @@ public:
         SW_pin = SW;
         for (int i = 0; i < 100; i++)
         {
-            x1 += analogRead(0);
-            y1 += analogRead(1);
+            //x1 += analogRead(0);
+            //y1 += analogRead(1);
         }
         x1 = x1 / 100;
         y1 = y1 / 100;
@@ -35,8 +35,8 @@ public:
     };
     void update()
     {
-        x = analogRead(0);
-        y = analogRead(1);
+        //x = analogRead(0);
+        //y = analogRead(1);
         sw = digitalRead(GPIOA, SW_pin);
         //println("Update " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(sw));
     };
@@ -78,6 +78,6 @@ public:
     }
     bool wasclicked()
     {
-        
+        return false;
     }
 };

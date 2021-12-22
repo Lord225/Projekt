@@ -19,7 +19,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "gpio.h"
-#include "agipo/analog.h"
 
 /* USER CODE BEGIN 0 */
 
