@@ -29,7 +29,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     app.on_update();
     displ.flush();
-    pad.buttonreset();
+    pad.resetstates();
 }
 
 int main()
@@ -45,7 +45,7 @@ int main()
     MX_TIM2_Init();
     MX_ADC1_Init();
 
-    pad.set_PAD(GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_10, 10);
+    pad.init(GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_10, 10);
     displ.init();
     displ.flush();
     app.on_start();

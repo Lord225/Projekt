@@ -1,6 +1,6 @@
 #pragma once
 #include "display/Display.h"
-#include "pad.cpp"
+#include "pad.h"
 #include "sprites.h"
 #include "point.h"
 #include "snake.h"
