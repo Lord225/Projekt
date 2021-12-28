@@ -29,4 +29,6 @@ public:
     PAD::DIR position();
     bool isclicked();
     bool wasclicked();
+    PAD::DIR lastpostion_;
+    PAD::DIR lastpostion();
 };

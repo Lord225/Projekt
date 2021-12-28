@@ -45,7 +45,7 @@ int main()
     MX_TIM2_Init();
     MX_ADC1_Init();
 
-    pad.init(GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_10, 10);
+    pad.init(GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_10, 100);
     displ.init();
     displ.flush();
     app.on_start();

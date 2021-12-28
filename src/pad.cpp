@@ -34,14 +34,14 @@ void PAD::update()
 {
     if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK)
     {
-        x = HAL_ADC_GetValue(&hadc1); // Get X value
+        x = HAL_ADC_GetValue(&hadc1)/4; // Get X value
         ADC_SetActiveChannel(&hadc1, ADC_CHANNEL_1);
         HAL_ADC_Start(&hadc1);
     }
 
     if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK)
     {
-        y = HAL_ADC_GetValue(&hadc1); // Get Y value
+        y = HAL_ADC_GetValue(&hadc1)/4; // Get Y value
         ADC_SetActiveChannel(&hadc1, ADC_CHANNEL_2);
         HAL_ADC_Start(&hadc1);
     }
@@ -49,36 +49,68 @@ void PAD::update()
     // y = analogRead(1);
     sw = digitalRead(GPIOA, SW_pin);
     //println("Update " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(sw));
-    if(sw == 0)
+    x1 = 500;
+    y1 = 500;
+    
+    if ((x - x1) * (x - x1) + (y - y1) * (y - y1) < y2*y2)
+    {
+        println(std::to_string(lastpostion()));
+        return;
+    }
+    if (x >= y && x <= -y + 1023)
+    {
+       println("LEFT");
+       lastpostion_ = LEFT;
+    }
+    if (x <= y && x >= -y + 1023)
+    {
+        println("RIGHT");
+        lastpostion_ = RIGHT;
+    }
+    if (x < y && x < -y + 1023)
+    {
+        println("UP");
+        lastpostion_ = UP;
+    }
+    if (x > y && x > -y + 1023)
+    {
+        println("DOWN");
+        lastpostion_ = DOWN;
+    }
+    // do testów ^
+    
+    if (sw == 0)
     {
         was_cliced = true;
     }
-
 }
 
 PAD::DIR PAD::position()
 {
     if ((x - x1) * (x - x1) + (y - y1) * (y - y1) < y2)
     {
-        return DIR::NONE;  //Definicja DIR w pad.h
+        return lastpostion(); //Definicja DIR w pad.h
     }
     if (x >= y && x <= -y + 1023)
     {
-        return DIR::UP;
+        return DIR::LEFT;
+        lastpostion_ = LEFT;
     }
     if (x <= y && x >= -y + 1023)
     {
-        return DIR::DOWN;
+        return DIR::RIGHT;
+        lastpostion_ = RIGHT;
     }
     if (x < y && x < -y + 1023)
     {
-        return DIR::LEFT;
+        return DIR::UP;
+        lastpostion_ = UP;
     }
     if (x > y && x > -y + 1023)
     {
-        return DIR::RIGHT;
+        return DIR::DOWN;
+        lastpostion_ = DOWN;
     }
-    return DIR::NONE;
 }
 
 bool PAD::isclicked()
@@ -89,4 +121,8 @@ bool PAD::isclicked()
 bool PAD::wasclicked()
 {
     return was_cliced == true;
+}
+PAD::DIR PAD::lastpostion()
+{
+    return lastpostion_;
 }
