@@ -1,4 +1,5 @@
 #pragma once
+#include "pad.h"
 #include "agipo/serial.h"
 #include "agipo/digital.h"
 #include "adc.h"

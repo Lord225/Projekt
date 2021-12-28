@@ -1,3 +1,4 @@
+#pragma once
 #include "pad.h"
 
     void PAD::buttonreset()
