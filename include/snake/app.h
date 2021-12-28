@@ -1,48 +1,51 @@
 #pragma once
 #include "display/Display.h"
-#include "pad.cpp"
+#include "pad.h"
+#include "sprites.h"
+#include "point.h"
+#include "snake.h"
 
 class Application
 {
 public:
     DisplayInterface &output;
-    PAD& input;
+    PAD &input;
 
-    Application(DisplayInterface &output, PAD& input) : output(output), input(input) {}
+    Application(DisplayInterface &output, PAD &input) : output(output), input(input) {}
 
-    void on_start()
+    Snake snake;
+
+    void reset_screen()
     {
-        for (int y = 0; y < output.HEIGHT; y++)
+        for (int i = 0; i < output.WIDTH; i++)
         {
-            for (int x = 0; x < output.WIDTH; x++)
+            for (int j = 0; j < output.HEIGHT; j++)
             {
-                output.set_pixel(x, y, (x + y + 1) % 2);
+                output.set_pixel(i, j, false);
             }
         }
     }
 
-    void change_state()
+    void on_start()
     {
-        for (int y = 0; y < output.HEIGHT; y++)
-        {
-            for (int x = 0; x < output.WIDTH; x++)
-            {
-                output.set_pixel(x, y, !output.get_pixel(x, y));
-            }
-        }
+        snake.reset(4, 4);
+    }
+
+    void random_heuristic()
+    {
+        for (int i = 0; snake.update(static_cast<PAD::DIR>(rand() % 4 + 1)) != Snake::CollisionClass::None; i++)
+            if (i > 20)
+                snake.reset(4, 4);
     }
 
     void on_update()
     {
-        println("On Update");
-        if(input.isclicked())
-        {  
-            change_state();
-            println("is clicked");
-        }
-        if(input.wasclicked())
-        {
-            println("was clicked");
-        }
+        reset_screen();
+
+        random_heuristic();
+
+        snake.render(output);
     }
 };
+
+
