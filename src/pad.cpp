@@ -14,17 +14,18 @@ void PAD::init(int x, int y, int SW, int R)
     {
         if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK)
         {
-            x1 += HAL_ADC_GetValue(&hadc1); // Tu chciałeś += ?
+            x1 += HAL_ADC_GetValue(&hadc1)/4; // Tu chciałeś += ?
             ADC_SetActiveChannel(&hadc1, ADC_CHANNEL_1);
             HAL_ADC_Start(&hadc1);
         }
 
         if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK)
         {
-            y1 += HAL_ADC_GetValue(&hadc1);
+            y1 += HAL_ADC_GetValue(&hadc1)/4;
             ADC_SetActiveChannel(&hadc1, ADC_CHANNEL_2);
             HAL_ADC_Start(&hadc1);
         }
+        //println("x1 = " + std::to_string(x1) + " y1 = " + std::to_string(y1));
     }
     x1 = x1 / 100;
     y1 = y1 / 100;
@@ -48,9 +49,7 @@ void PAD::update()
     // x = analogRead(0);
     // y = analogRead(1);
     sw = digitalRead(GPIOA, SW_pin);
-    //println("Update " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(sw));
-    x1 = 500;
-    y1 = 500;
+    print("Update " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(sw) + " --- ");
     /*
     if ((x - x1) * (x - x1) + (y - y1) * (y - y1) < y2*y2)
     {

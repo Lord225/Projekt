@@ -45,13 +45,14 @@ int main()
     MX_TIM2_Init();
     MX_ADC1_Init();
 
-    pad.init(GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_10, 100);
+    
     displ.init();
     displ.flush();
     app.on_start();
 
     HAL_TIM_Base_Start_IT(&htim2);
     HAL_ADC_Start(&hadc1);
+    pad.init(GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_10, 100);
 
     while (1)
     {
