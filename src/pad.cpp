@@ -51,7 +51,7 @@ void PAD::update()
     //println("Update " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(sw));
     x1 = 500;
     y1 = 500;
-    
+    /*
     if ((x - x1) * (x - x1) + (y - y1) * (y - y1) < y2*y2)
     {
         println(std::to_string(lastpostion()));
@@ -78,7 +78,7 @@ void PAD::update()
         lastpostion_ = DOWN;
     }
     // do testów ^
-    
+    */
     if (sw == 0)
     {
         was_cliced = true;
