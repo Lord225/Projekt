@@ -52,7 +52,7 @@ int main()
 
     HAL_TIM_Base_Start_IT(&htim2);
     HAL_ADC_Start(&hadc1);
-    pad.init(GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_10, 100);
+    pad.init(GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_10, 200);
 
     while (1)
     {

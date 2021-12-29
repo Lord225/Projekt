@@ -46,69 +46,42 @@ void PAD::update()
         ADC_SetActiveChannel(&hadc1, ADC_CHANNEL_2);
         HAL_ADC_Start(&hadc1);
     }
-    // x = analogRead(0);
-    // y = analogRead(1);
     sw = digitalRead(GPIOA, SW_pin);
-    print("Update " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(sw) + " --- ");
-    /*
-    if ((x - x1) * (x - x1) + (y - y1) * (y - y1) < y2*y2)
-    {
-        println(std::to_string(lastpostion()));
-        return;
-    }
-    if (x >= y && x <= -y + 1023)
-    {
-       println("LEFT");
-       lastpostion_ = LEFT;
-    }
-    if (x <= y && x >= -y + 1023)
-    {
-        println("RIGHT");
-        lastpostion_ = RIGHT;
-    }
-    if (x < y && x < -y + 1023)
-    {
-        println("UP");
-        lastpostion_ = UP;
-    }
-    if (x > y && x > -y + 1023)
-    {
-        println("DOWN");
-        lastpostion_ = DOWN;
-    }
-    // do testów ^
-    */
+
+
     if (sw == 0)
     {
         was_cliced = true;
     }
+    //println(std::to_string(lastpostion_));
+    position();
 }
 
 PAD::DIR PAD::position()
 {
     if ((x - x1) * (x - x1) + (y - y1) * (y - y1) < y2)
     {
-        return lastpostion(); //Definicja DIR w pad.h
+        return DIR::NONE; //Definicja DIR w pad.h
     }
     if (x >= y && x <= -y + 1023)
     {
-        return DIR::LEFT;
         lastpostion_ = LEFT;
+        return DIR::LEFT;
     }
     if (x <= y && x >= -y + 1023)
     {
-        return DIR::RIGHT;
         lastpostion_ = RIGHT;
+        return DIR::RIGHT;
     }
     if (x < y && x < -y + 1023)
     {
-        return DIR::UP;
         lastpostion_ = UP;
+        return DIR::UP;
     }
     if (x > y && x > -y + 1023)
     {
-        return DIR::DOWN;
         lastpostion_ = DOWN;
+        return DIR::DOWN;
     }
 }
 

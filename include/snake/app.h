@@ -38,11 +38,19 @@ public:
                 snake.reset(4, 4);
     }
 
+    void debug_print_input()
+    {
+        println(std::to_string(input.wasclicked()) + " " + std::to_string(input.isclicked()));
+        println(std::to_string(input.lastpostion()) + " " + std::to_string(input.position()));
+    }
+
     void on_update()
     {
         reset_screen();
 
         random_heuristic();
+
+        debug_print_input();
 
         snake.render(output);
     }
