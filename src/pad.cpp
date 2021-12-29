@@ -1,4 +1,3 @@
-#pragma once
 #include "pad.h"
 
 void PAD::resetstates()
@@ -85,6 +84,8 @@ PAD::DIR PAD::position()
         poscounter[DIR::DOWN] += 1;
         return DIR::DOWN;
     }
+
+    return DIR::NONE;
 }
 
 bool PAD::isclicked()

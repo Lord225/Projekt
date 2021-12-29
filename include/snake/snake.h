@@ -9,7 +9,7 @@ class Snake : public DrawableInferface
 {
     Point head;
     std::deque<Point> tail;
-    size_t max = 5;
+    int max = 1;
     PAD::DIR last_dir;
 public:
     enum CollisionClass
@@ -17,6 +17,7 @@ public:
         None = 0,
         Wall = 1,
         Self = 2,
+        Stay = 3,
     };
 
     std::pair<int,int> dir_to_vec(PAD::DIR dir)
@@ -45,6 +46,16 @@ public:
         max = size;
     }
 
+    bool try_eat_apple(Point& apple)
+    {
+        if(check_for_colisions(apple) == CollisionClass::Stay)
+        {
+            max += 1;
+            return true;
+        }
+        return false;
+    }
+
     PAD::DIR get_last_dir()
     {
         return last_dir;
@@ -57,6 +68,9 @@ public:
         if(new_head.y < 0 || new_head.y > 7)
             return CollisionClass::Wall;
         
+        if(new_head == head)
+            return CollisionClass::Stay;
+
         for(auto& segment : tail)
             if(segment==new_head)
                 return CollisionClass::Self;
@@ -64,10 +78,7 @@ public:
     }
 
     CollisionClass update(PAD::DIR DIR)
-    {
-        while(tail.size() > max)
-            tail.pop_back();
-        
+    {   
         Point new_pos = head;
         new_pos += dir_to_vec(DIR);
         
@@ -77,6 +88,9 @@ public:
         tail.push_front(head);
         head = new_pos;
         last_dir = DIR;
+
+        while(static_cast<int>(tail.size()) > max)
+            tail.pop_back();
 
         return CollisionClass::None;
     }
