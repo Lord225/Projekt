@@ -13,6 +13,7 @@ private:
     int sw{};
     int x1{}, y1{}, y2{};
     bool was_cliced = false;
+    int poscounter[5];
 
 public:
     enum DIR
@@ -29,6 +30,5 @@ public:
     PAD::DIR position();
     bool isclicked();
     bool wasclicked();
-    PAD::DIR lastpostion_;
     PAD::DIR lastpostion();
 };

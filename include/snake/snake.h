@@ -10,6 +10,7 @@ class Snake : public DrawableInferface
     Point head;
     std::deque<Point> tail;
     size_t max = 5;
+    PAD::DIR last_dir;
 public:
     enum CollisionClass
     {
@@ -44,6 +45,11 @@ public:
         max = size;
     }
 
+    PAD::DIR get_last_dir()
+    {
+        return last_dir;
+    }
+
     CollisionClass check_for_colisions(Point& new_head)
     {
         if(new_head.x < 0 || new_head.x > 7)
@@ -70,6 +76,7 @@ public:
 
         tail.push_front(head);
         head = new_pos;
+        last_dir = DIR;
 
         return CollisionClass::None;
     }

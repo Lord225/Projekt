@@ -38,18 +38,52 @@ public:
                 snake.reset(4, 4);
     }
 
+    void player_heuristic()
+    {
+        auto action = input.position();
+        auto last_action = input.lastpostion();
+        
+        if(action == PAD::DIR::NONE)
+        {
+            action = last_action;
+        }
+        
+        auto env_response = snake.update(action);
+
+        switch(env_response)
+        {
+            case Snake::CollisionClass::Wall:
+                break;
+            case Snake::CollisionClass::Self:
+                break;
+            case Snake::CollisionClass::None:
+            default:
+                break;
+            
+        }
+
+         
+    }
+
     void debug_print_input()
     {
         println(std::to_string(input.wasclicked()) + " " + std::to_string(input.isclicked()));
         println(std::to_string(input.lastpostion()) + " " + std::to_string(input.position()));
     }
 
+    void check_for_heuristic_change()
+    {
+
+    }
+
     void on_update()
     {
         reset_screen();
 
-        random_heuristic();
+        //random_heuristic();
 
+        player_heuristic();
+        
         debug_print_input();
 
         snake.render(output);

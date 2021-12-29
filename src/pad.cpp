@@ -4,6 +4,8 @@
 void PAD::resetstates()
 {
     was_cliced = false;
+    for (size_t i = 0; i < 5; i++)
+        poscounter[i] = 0;
 }
 void PAD::init(int x, int y, int SW, int R)
 {
@@ -53,7 +55,7 @@ void PAD::update()
     {
         was_cliced = true;
     }
-    //println(std::to_string(lastpostion_));
+
     position();
 }
 
@@ -61,26 +63,26 @@ PAD::DIR PAD::position()
 {
     if ((x - x1) * (x - x1) + (y - y1) * (y - y1) < y2)
     {
-        return DIR::NONE; //Definicja DIR w pad.h
+        return DIR::NONE;
     }
     if (x >= y && x <= -y + 1023)
     {
-        lastpostion_ = LEFT;
+        poscounter[DIR::LEFT] += 1;
         return DIR::LEFT;
     }
     if (x <= y && x >= -y + 1023)
     {
-        lastpostion_ = RIGHT;
+        poscounter[DIR::RIGHT] += 1;
         return DIR::RIGHT;
     }
     if (x < y && x < -y + 1023)
     {
-        lastpostion_ = UP;
+        poscounter[DIR::UP] += 1;
         return DIR::UP;
     }
     if (x > y && x > -y + 1023)
     {
-        lastpostion_ = DOWN;
+        poscounter[DIR::DOWN] += 1;
         return DIR::DOWN;
     }
 }
@@ -96,5 +98,16 @@ bool PAD::wasclicked()
 }
 PAD::DIR PAD::lastpostion()
 {
-    return lastpostion_;
+    size_t argmax = 0;
+    int value = 0;
+    for (size_t i = 1; i < 5; i++)
+    {
+        if(value < poscounter[i])
+        {
+            value = poscounter[i];
+            argmax = i;
+        }
+    }
+        
+    return static_cast<DIR>(argmax);
 }
