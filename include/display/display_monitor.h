@@ -6,6 +6,7 @@
 class DisplayMonitor : public DisplayInterface
 {
     bool _screen[8][8];
+
 public:
     DisplayMonitor() {}
     void set_pixel(int x, int y, bool state) override;

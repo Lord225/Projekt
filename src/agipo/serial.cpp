@@ -2,26 +2,29 @@
 
 std::array<weak_mutex<std::string>, BUFFOR_COUNT> Monitor::cout;
 
-void print(std::string message){
+void print(std::string message)
+{
     Monitor::print(message);
 }
 
-void println(std::string message){
+void println(std::string message)
+{
     message += '\n';
     print(message);
 }
 
-void Monitor::flush(UART_HandleTypeDef& channel, size_t time_out)
+void Monitor::flush(UART_HandleTypeDef &channel, size_t time_out)
 {
-    for(auto& guarded_stream : cout)
+    for (auto &guarded_stream : cout)
     {
         auto opt = guarded_stream.try_lock();
-        if(opt.has_value()) {
-            std::string& stream = *opt;
-            if(stream.size() != 0)
+        if (opt.has_value())
+        {
+            std::string &stream = *opt;
+            if (stream.size() != 0)
             {
                 auto state = HAL_UART_Transmit(&channel, (uint8_t *)stream.c_str(), stream.length(), time_out);
-                
+
                 switch (state)
                 {
                 case HAL_StatusTypeDef::HAL_OK:
@@ -42,15 +45,15 @@ void Monitor::flush(UART_HandleTypeDef& channel, size_t time_out)
             guarded_stream.unlock();
         }
     }
-}   
+}
 void Monitor::print(std::string message)
 {
-    for(auto& guarded_stream : cout)
+    for (auto &guarded_stream : cout)
     {
         auto opt = guarded_stream.try_lock();
-        if(opt.has_value())
+        if (opt.has_value())
         {
-            std::string& stream = *opt;
+            std::string &stream = *opt;
             stream += message;
             guarded_stream.unlock();
             return;
@@ -60,14 +63,14 @@ void Monitor::print(std::string message)
     outOfStreams();
 }
 
-void Monitor::timeoutHandler(std::string& stream)
+void Monitor::timeoutHandler(std::string &stream)
 {
-    print("UART Error: Cannot flush stream of " + std::to_string(stream.size()) + " Bytes (Timeout)");
+    print("UART Error: Cannot flush stream with " + std::to_string(stream.size()) + " Bytes (Timeout)");
     stream.clear();
 }
-void Monitor::errorHandler(std::string& stream)
+void Monitor::errorHandler(std::string &stream)
 {
-    print("UART Error: Cannot flush stream of " + std::to_string(stream.size()) + " Bytes (Other Error)");
+    print("UART Error: Cannot flush stream with " + std::to_string(stream.size()) + " Bytes (Other Error)");
     stream.clear();
 }
 void Monitor::outOfStreams()

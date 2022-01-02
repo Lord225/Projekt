@@ -33,26 +33,26 @@ public:
             break;
         }
     }
-    Point& operator= (Point const&) = default;
-    Point& operator= (std::initializer_list<int>&& op)
-    {  
+    Point &operator=(Point const &) = default;
+    Point &operator=(std::initializer_list<int> &&op)
+    {
         x = *op.begin();
-        y = *(op.begin()+1);
+        y = *(op.begin() + 1);
         return *this;
     }
-    Point& operator= (std::pair<int, int>&& op)
-    {  
+    Point &operator=(std::pair<int, int> &&op)
+    {
         x = op.first;
         y = op.second;
         return *this;
     }
-    Point& operator+= (std::pair<int, int>&& op)
-    {  
+    Point &operator+=(std::pair<int, int> &&op)
+    {
         x += op.first;
         y += op.second;
         return *this;
     }
-    bool operator== (const Point& other)
+    bool operator==(const Point &other)
     {
         return this->x == other.x && this->y == other.y;
     }

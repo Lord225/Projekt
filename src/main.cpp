@@ -26,12 +26,8 @@ void SystemClock_Config(void);
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-
     app.on_update();
-
-    
     app.on_render();
-    
     app.on_animation_update();
     displ.flush();
     pad.resetstates();
@@ -50,14 +46,13 @@ int main()
     MX_TIM2_Init();
     MX_ADC1_Init();
 
-    
     displ.init();
     displ.flush();
     app.on_start();
+    pad.init(GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_10, 50);
 
     HAL_TIM_Base_Start_IT(&htim2);
     HAL_ADC_Start(&hadc1);
-    pad.init(GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_10, 50);
 
     while (1)
     {

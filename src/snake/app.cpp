@@ -16,20 +16,20 @@ PAD::DIR Application::random_direction(PAD::DIR exclude)
 }
 
 PAD::DIR Application::get_neg_dir(PAD::DIR dir)
+{
+    switch (dir)
     {
-        switch (dir)
-        {
-        case PAD::DIR::NONE:
-            return PAD::DIR::NONE;
-        case PAD::DIR::RIGHT:
-            return PAD::DIR::LEFT;
-        case PAD::DIR::LEFT:
-            return PAD::DIR::RIGHT;
-        case PAD::DIR::UP:
-            return PAD::DIR::DOWN;
-        case PAD::DIR::DOWN:
-            return PAD::DIR::UP;
-        default:
-            return PAD::DIR::NONE;
-        }
+    case PAD::DIR::NONE:
+        return PAD::DIR::NONE;
+    case PAD::DIR::RIGHT:
+        return PAD::DIR::LEFT;
+    case PAD::DIR::LEFT:
+        return PAD::DIR::RIGHT;
+    case PAD::DIR::UP:
+        return PAD::DIR::DOWN;
+    case PAD::DIR::DOWN:
+        return PAD::DIR::UP;
+    default:
+        return PAD::DIR::NONE;
     }
+}

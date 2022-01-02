@@ -8,14 +8,12 @@
 #include "snake.h"
 #include "math.h"
 
-
 enum GameState
 {
     Game,
     GameOverAnim,
     Random,
 };
-
 
 class Application
 {
@@ -76,16 +74,19 @@ public:
         if (action == PAD::DIR::NONE)
             action = snake.get_last_dir();
 
-        auto env_response = snake.update(action);
-
-        if (env_response == Snake::CollisionClass::Self || env_response == Snake::CollisionClass::Stay)
+        switch (snake.update(action))
+        {
+        case Snake::CollisionClass::Self:
+        case Snake::CollisionClass::Stay:
             random_heuristic(get_neg_dir(action));
-
-        if (env_response == Snake::CollisionClass::None)
+            break;
+        case Snake::CollisionClass::None:
             move_failed = 0;
-
-        if (env_response == Snake::CollisionClass::Wall)
+            break;
+        case Snake::CollisionClass::Wall:
             move_failed += 1;
+            break;
+        }
 
         if (move_failed > 1)
             game_over(GameState::Game, 0);
@@ -174,7 +175,6 @@ public:
     }
 };
 
-
 class ScreenFlickerGameOver : public Animation
 {
     int peroids;
@@ -190,11 +190,11 @@ public:
                           Application *app,
                           GameState target,
                           int target_size) : Animation(lerp_time),
-                                              peroids(1 / peroid),
-                                              fill(fill),
-                                              app(app),
-                                              target(target),
-                                              target_size(target_size)
+                                             peroids(1 / peroid),
+                                             fill(fill),
+                                             app(app),
+                                             target(target),
+                                             target_size(target_size)
     {
     }
 

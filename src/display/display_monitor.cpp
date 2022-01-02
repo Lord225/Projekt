@@ -2,13 +2,13 @@
 
 void DisplayMonitor::set_pixel(int x, int y, bool state)
 {
-    if(is_in_bounds(x, y))
+    if (is_in_bounds(x, y))
         _screen[x][y] = state;
 }
 
 bool DisplayMonitor::get_pixel(int x, int y)
 {
-    if(is_in_bounds(x, y))
+    if (is_in_bounds(x, y))
         return _screen[x][y];
     return false;
 }

@@ -14,10 +14,10 @@ class Snake : public DrawableInferface
 public:
     enum CollisionClass
     {
-        None = 0,
-        Wall = 1,
-        Self = 2,
-        Stay = 3,
+        None = 0, // No colision accure
+        Wall = 1, // Colision with wall
+        Self = 2, // Self colision with tail
+        Stay = 3, // Self Colision with head (if new head is in same place thad old one)
     };
 
     std::pair<int,int> dir_to_vec(PAD::DIR dir)
@@ -77,6 +77,7 @@ public:
         return CollisionClass::None;  
     }
 
+    /// Moves snake to new posions. Updates tail, head, checks for colisions if colisions accure snake will stay in old position.
     CollisionClass update(PAD::DIR DIR)
     {   
         Point new_pos = head;

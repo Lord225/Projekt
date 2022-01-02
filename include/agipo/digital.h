@@ -6,8 +6,8 @@
 #define LOW 0
 #define HIGH 1
 
-void digitalWrite(GPIO_TypeDef* port, uint16_t  pin, bool state);
+void digitalWrite(GPIO_TypeDef *port, uint16_t pin, bool state);
 
-bool digitalRead(GPIO_TypeDef* port, uint16_t pin);
+bool digitalRead(GPIO_TypeDef *port, uint16_t pin);
 
 #endif

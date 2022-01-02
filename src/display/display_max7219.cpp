@@ -2,28 +2,28 @@
 
 void DisplayExternal::set_pixel(int x, int y, bool state)
 {
-    if(is_in_bounds(x, y))
+    if (is_in_bounds(x, y))
         _screen[x][y] = state;
 }
 
 bool DisplayExternal::get_pixel(int x, int y)
 {
-    if(is_in_bounds(x, y))
+    if (is_in_bounds(x, y))
         return _screen[x][y];
-    
+
     return false;
 }
 
-void DisplayExternal::flush() 
+void DisplayExternal::flush()
 {
-    for(int row = 0; row < 8; row++)
-        maxTransfer(row+1, _screen[row].to_ulong());
+    for (int row = 0; row < 8; row++)
+        maxTransfer(row + 1, _screen[row].to_ulong());
 }
 
-void DisplayExternal::init() 
+void DisplayExternal::init()
 {
     maxTransfer(MAX7219_SHUTDOWN, 0x00);
-    maxTransfer(MAX7219_DECODE_MODE, 0x00); 
+    maxTransfer(MAX7219_DECODE_MODE, 0x00);
     maxTransfer(MAX7219_BRIGHTNESS, 0x00);
     maxTransfer(MAX7219_SCAN_LIMIT, 0x0F);
     maxTransfer(MAX7219_SHUTDOWN, 0x01);

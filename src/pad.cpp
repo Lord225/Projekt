@@ -15,18 +15,18 @@ void PAD::init(int x, int y, int SW, int R)
     {
         if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK)
         {
-            x1 += HAL_ADC_GetValue(&hadc1)/4; // Tu chciałeś += ?
+            x1 += HAL_ADC_GetValue(&hadc1) / 4; // Tu chciałeś += ?
             ADC_SetActiveChannel(&hadc1, ADC_CHANNEL_1);
             HAL_ADC_Start(&hadc1);
         }
 
         if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK)
         {
-            y1 += HAL_ADC_GetValue(&hadc1)/4;
+            y1 += HAL_ADC_GetValue(&hadc1) / 4;
             ADC_SetActiveChannel(&hadc1, ADC_CHANNEL_2);
             HAL_ADC_Start(&hadc1);
         }
-        //println("x1 = " + std::to_string(x1) + " y1 = " + std::to_string(y1));
+        // println("x1 = " + std::to_string(x1) + " y1 = " + std::to_string(y1));
     }
     x1 = x1 / 100;
     y1 = y1 / 100;
@@ -36,19 +36,18 @@ void PAD::update()
 {
     if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK)
     {
-        x = HAL_ADC_GetValue(&hadc1)/4; // Get X value
+        x = HAL_ADC_GetValue(&hadc1) / 4; // Get X value
         ADC_SetActiveChannel(&hadc1, ADC_CHANNEL_1);
         HAL_ADC_Start(&hadc1);
     }
 
     if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK)
     {
-        y = HAL_ADC_GetValue(&hadc1)/4; // Get Y value
+        y = HAL_ADC_GetValue(&hadc1) / 4; // Get Y value
         ADC_SetActiveChannel(&hadc1, ADC_CHANNEL_2);
         HAL_ADC_Start(&hadc1);
     }
     sw = digitalRead(GPIOA, SW_pin);
-
 
     if (sw == 0)
     {
@@ -103,12 +102,12 @@ PAD::DIR PAD::lastpostion()
     int value = 0;
     for (size_t i = 1; i < 5; i++)
     {
-        if(value < poscounter[i])
+        if (value < poscounter[i])
         {
             value = poscounter[i];
             argmax = i;
         }
     }
-        
+
     return static_cast<DIR>(argmax);
 }
