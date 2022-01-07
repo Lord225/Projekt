@@ -15,7 +15,7 @@ void PAD::init(int x, int y, int SW, int R)
     {
         if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK)
         {
-            x1 += HAL_ADC_GetValue(&hadc1) / 4; // Tu chciałeś += ?
+            x1 += HAL_ADC_GetValue(&hadc1) / 4;
             ADC_SetActiveChannel(&hadc1, ADC_CHANNEL_1);
             HAL_ADC_Start(&hadc1);
         }
